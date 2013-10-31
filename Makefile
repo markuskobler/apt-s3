@@ -11,5 +11,6 @@ clean:
 	rm -rf debian/apt-transport-s3*
 
 deb:
-	dpkg-buildpackage -us -uc
+	sudo dpkg-buildpackage -us -uc
+	sudo mv /apt-transport-s3* debian
 
