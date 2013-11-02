@@ -2,19 +2,21 @@
 
 Additional "s3" protocol for apt so you can host your giant apt repository in s3 on the cheap!
 
-We use this for pressflip.com to deploy and distribute all of our software.  apt is a great packaging system and s3 is a great place to backup/store static files.  apt-s3 is especially useful and fast if you are hosting your servers within EC2.
+Apt is a great packaging system and s3 is a great place to backup/store static files.  apt-s3 is especially useful and fast if you are hosting your servers within EC2.
 
 Original Author: Kyle Shank
-Contributors: Cliff Moon (@cliffmoon on GH), Jens Braeuer (@jbraeuer)
+Contributors: Cliff Moon (@cliffmoon on GH), Jens Braeuer (@jbraeuer), Gabriel McArthur (@gabemc)
 Documenter: Susan Potter (@mbbx6spp on GH)
 
 ## Building
 
-Before building this project on Ubuntu (tested on 11.10) you will need to install the following packages:
+To build, you can simply run
 
-    [sudo] apt-get install libapt-pkg-dev libcurl4-openssl-dev
+```
+vagrant up
+```
 
-To build this project you simply run `make`. It will produce a binary named `s3` under the `src/` dir.
+In this directory. At worst, look inside the Vagrantfile for additional setup steps you will need to take, like installing additional packages. The output should be in the 'debian' directory after the `up` command.
 
 ## Installing
 
@@ -33,14 +35,14 @@ Simply upload all of your .deb packages and Packages.gz file into the s3 bucket 
 Before synchronization, you need a s3cmd tool installed and configured:
 
     [sudo] apt-get install s3cmd
-    
+
     s3cmd --configure
 
 To synchronize local repository to s3 as read-only, execute:
 
     s3cmd sync /srv/apt-repo-dir/dists s3://bucket_name
     s3cmd sync /srv/apt-repo-dir/pool s3://bucket_name
-    
+
 ## Using GPG keys
 
 If you're signing you repository with key, export it to server:
